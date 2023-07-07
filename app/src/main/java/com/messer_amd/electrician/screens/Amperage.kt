@@ -144,7 +144,7 @@ fun Amperage() {
                             keyboardType = KeyboardType.Number,
                             imeAction = ImeAction.Done
                         ),
-                        value = currentInput,
+                        value = resistanceInput,
                         onValueChanged = { resistanceInput = it },
                         modifier = Modifier
                             .padding(4.dp)
