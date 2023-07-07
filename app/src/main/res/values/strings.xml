@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Electrician</string>
+    <string name="ohm_law">Сила тока в проводнике прямо пропорциональна напряжению и обратно пропорциональна сопротивлению.</string>
+    <string name="current_text">Напряжение (U)</string>
+    <string name="amperage_title">Сила тока</string>
+    <string name="label_current">Напряжение</string>
+    <string name="label_volt">Вольт</string>
+    <string name="label_ohm">Ом</string>
+    <string name="resistance_text">Сопротивление (R)</string>
 </resources>
