@@ -7,4 +7,5 @@
     <string name="label_volt">Вольт</string>
     <string name="label_ohm">Ом</string>
     <string name="resistance_text">Сопротивление (R)</string>
+    <string name="calculate_button_text">Рассчитать</string>
 </resources>
