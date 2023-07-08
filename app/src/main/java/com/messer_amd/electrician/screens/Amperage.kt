@@ -158,13 +158,10 @@ fun Amperage() {
                 elevation = ButtonDefaults.buttonElevation(4.dp),
                 shape = RoundedCornerShape(6.dp),
                 colors = ButtonDefaults.buttonColors(Color.Blue),
-
-                )
-
-            {
+            ) {
                 Text(
                     text = stringResource(R.string.calculate_button_text),
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MaterialTheme.typography.titleLarge
                 )
             }
         }
