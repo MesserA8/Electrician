@@ -8,8 +8,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -50,7 +48,7 @@ fun Amperage() {
 // переменные для формулы
     val current = currentInput.toFloatOrNull() ?: 0 // напряжение
     val resistance = resistanceInput.toFloatOrNull() ?: 0 // сопротивление
-    val amperage = amperageResult() // сила тока итоговая
+    val amperage = amperageResult(0.0f, 0.0f)
 
     Card(
         modifier = Modifier
@@ -179,8 +177,9 @@ fun Amperage() {
 
 // calculate fun
 
-fun amperageResult() {
-
+fun amperageResult(current: Float, resistance: Float): String {
+    var amperage = current / resistance
+    return String.format("%.4f", amperage) // ограничиваем кол-во знаков после запятой
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
