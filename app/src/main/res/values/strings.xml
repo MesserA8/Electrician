@@ -9,5 +9,5 @@
     <string name="label_ampere">Ампер</string>
     <string name="resistance_text">Сопротивление (R)</string>
     <string name="calculate_button_text">Рассчитать</string>
-    <string name="amperage_result">Сила тока (I)</string>
+    <string name="amperage_result">Сила тока(I):</string>
 </resources>

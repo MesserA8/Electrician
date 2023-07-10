@@ -3,6 +3,7 @@ package com.messer_amd.electrician.screens
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,8 +21,10 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -32,10 +35,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.messer_amd.electrician.R
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -47,11 +54,7 @@ import java.math.RoundingMode
 fun Amperage() {
     var currentInput by remember { mutableStateOf("") }
     var resistanceInput by remember { mutableStateOf("") }
-    var amperageResult by remember { mutableStateOf("")}
-// переменные для формулы
-//    val current = currentInput.toFloatOrNull() ?: 0 // напряжение
-//    val resistance = resistanceInput.toFloatOrNull() ?: 0 // сопротивление
-  //  val amperage = amperageResult(0.0f, 0.0f)
+    var amperageResult by remember { mutableStateOf("") }
 
     Card(
         modifier = Modifier
@@ -165,7 +168,7 @@ fun Amperage() {
                     val current = currentInput.toFloatOrNull() ?: 0 // напряжение
                     val resistance = resistanceInput.toFloatOrNull() ?: 0 // сопротивление
                     amperageResult = amperageResult(current as Float, resistance as Float)
-                          },
+                },
                 elevation = ButtonDefaults.buttonElevation(4.dp),
                 shape = RoundedCornerShape(10.dp),
                 colors = ButtonDefaults.buttonColors(Color.Blue),
@@ -189,21 +192,43 @@ fun Amperage() {
             ) {
                 Text(
                     modifier = Modifier
-                        .padding(start = 4.dp),
-                    text = stringResource(R.string.amperage_result), // СИЛА ТОКА
-                    style = MaterialTheme.typography.bodyLarge,
+                        .padding(start = 4.dp)
+                        .weight(0.8f),
+                    text = stringResource(R.string.amperage_result), // СИЛА ТОКА(I):
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+//                    style = MaterialTheme.typography.titleLarge,
                     color = Color.Black
                 )
-                Spacer(modifier = Modifier.width(10.dp))
-               Text(
-                   modifier = Modifier
-                       .padding(start = 10.dp),
-                   text = amperageResult
-               )
-                Spacer(modifier = Modifier.width(10.dp))
+                    //Spacer(modifier = Modifier.width(10.dp))
+                // Box with result
+                Box(
+                    modifier = Modifier
+                        .weight(0.8f)
+                        .padding(start = 10.dp)
+                        .border(
+                            width = 1.dp,
+                            color = Color.Green,
+                            shape = RoundedCornerShape(4.dp)
+                        ),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = amperageResult,
+                        modifier = Modifier.padding(4.dp),
+                        fontSize = 18.sp
+                    )
+                }
+               // Spacer(modifier = Modifier.width(10.dp))
                 Text(
-                    modifier = Modifier.padding(start = 10.dp),
-                    text = stringResource(R.string.label_ampere)
+                    modifier = Modifier
+                        .padding(start = 4.dp)
+                        .weight(0.7f),
+                    text = stringResource(R.string.label_ampere),
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black,
+                    textAlign = TextAlign.Center
                 )
             }
         }
@@ -227,7 +252,7 @@ fun EditNumberField(
     onValueChanged: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    TextField(
+    OutlinedTextField(
         value = value,
         modifier = modifier,
         onValueChange = onValueChanged,
@@ -239,7 +264,70 @@ fun EditNumberField(
                 Text(text = stringResource(label))
             }
         },
-        keyboardOptions = keyboardOptions
+        keyboardOptions = keyboardOptions,
+        textStyle = TextStyle(
+            textAlign = TextAlign.Center, // располагаем введенные значения по центру
+            fontSize = 18.sp // размер вводимых значений
+        ),
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            focusedBorderColor = Color.Green, // цвет при получении фокуса
+            unfocusedBorderColor = Color.LightGray  // цвет при отсутствии фокуса
+        )
     )
 }
+
+
+// RESULT FIELD TEST
+//@Preview(showBackground = true)
+//@Composable
+//fun ResultField() {
+//    Box(
+//        modifier = Modifier
+//            .fillMaxWidth()
+//    ) {
+//        Row(
+//            modifier = Modifier,
+//            verticalAlignment = Alignment.CenterVertically
+//        ) {
+//            Text(
+//                modifier = Modifier
+//                    .padding(start = 4.dp)
+//                    . weight(1f),
+//                text = stringResource(R.string.amperage_result), // СИЛА ТОКА(I):
+//                style = MaterialTheme.typography.titleLarge,
+//                color = Color.Black
+//            )
+//            Spacer(modifier = Modifier.width(10.dp))
+//            // Box with result
+//            Box(
+//                modifier = Modifier
+//                    .weight(1f)
+//                    .border(
+//                        width = 1.dp,
+//                        color = Color.Magenta,
+//                        shape = RoundedCornerShape(4.dp)
+//                    )
+//                    .padding(8.dp),
+//                contentAlignment = Alignment.Center
+//            ) {
+//                Text(
+//                    text = "ampere",
+//                    modifier = Modifier.padding(8.dp),
+//                    fontSize = 18.sp
+//                )
+//            }
+//            Spacer(modifier = Modifier.width(10.dp))
+//            Text(
+//                modifier = Modifier
+//                    .padding(end = 2.dp)
+//                    .weight(0.5f),
+//                text = stringResource(R.string.label_ampere),
+//            )
+//        }
+//    }
+//}
+
+
+
+
 
