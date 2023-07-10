@@ -47,6 +47,10 @@ import com.messer_amd.electrician.R
 import java.math.BigDecimal
 import java.math.RoundingMode
 
+// Настроить цвет закона Ома
+//выбрать цвета кнопки
+// выбрать цвета выделения активного поля ввода
+// выбрать цвет рамки поля вывода
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true, showSystemUi = true)
@@ -59,7 +63,7 @@ fun Amperage() {
     Card(
         modifier = Modifier
             .padding(4.dp)
-            .background(Color.LightGray),
+            .background(Color.Unspecified),
         shape = RoundedCornerShape(15.dp)
     ) {
         Column(
@@ -166,9 +170,13 @@ fun Amperage() {
             // place for button
             Button(
                 onClick = {
-                    val current = currentInput.toFloatOrNull() ?: 0 // напряжение
-                    val resistance = resistanceInput.toFloatOrNull() ?: 0 // сопротивление
-                    amperageResult = amperageResult(current as Float, resistance as Float)
+                    val current = currentInput.toFloatOrNull() // напряжение
+                    val resistance = resistanceInput.toFloatOrNull()// сопротивление
+                    amperageResult = if (current != null &&  resistance != null) {
+                        amperageResult(current, resistance)
+                    } else {
+                        "☺" // alt + 1
+                    }
                 },
                 elevation = ButtonDefaults.buttonElevation(4.dp),
                 shape = RoundedCornerShape(10.dp),
@@ -239,6 +247,9 @@ fun Amperage() {
 // calculate fun
 
 fun amperageResult(current: Float, resistance: Float): String {
+    if (current == 0f || resistance == 0f) {
+        return "-273.15°C" // alt + 0176
+    }
     val amperage = current / resistance
     val formattedAmperage = BigDecimal(amperage.toDouble()).setScale(5, RoundingMode.HALF_UP)
     return formattedAmperage.stripTrailingZeros().toPlainString()
@@ -292,55 +303,6 @@ fun EditNumberField(
 }
 
 
-// RESULT FIELD TEST
-//@Preview(showBackground = true)
-//@Composable
-//fun ResultField() {
-//    Box(
-//        modifier = Modifier
-//            .fillMaxWidth()
-//    ) {
-//        Row(
-//            modifier = Modifier,
-//            verticalAlignment = Alignment.CenterVertically
-//        ) {
-//            Text(
-//                modifier = Modifier
-//                    .padding(start = 4.dp)
-//                    . weight(1f),
-//                text = stringResource(R.string.amperage_result), // СИЛА ТОКА(I):
-//                style = MaterialTheme.typography.titleLarge,
-//                color = Color.Black
-//            )
-//            Spacer(modifier = Modifier.width(10.dp))
-//            // Box with result
-//            Box(
-//                modifier = Modifier
-//                    .weight(1f)
-//                    .border(
-//                        width = 1.dp,
-//                        color = Color.Magenta,
-//                        shape = RoundedCornerShape(4.dp)
-//                    )
-//                    .padding(8.dp),
-//                contentAlignment = Alignment.Center
-//            ) {
-//                Text(
-//                    text = "ampere",
-//                    modifier = Modifier.padding(8.dp),
-//                    fontSize = 18.sp
-//                )
-//            }
-//            Spacer(modifier = Modifier.width(10.dp))
-//            Text(
-//                modifier = Modifier
-//                    .padding(end = 2.dp)
-//                    .weight(0.5f),
-//                text = stringResource(R.string.label_ampere),
-//            )
-//        }
-//    }
-//}
 
 
 
