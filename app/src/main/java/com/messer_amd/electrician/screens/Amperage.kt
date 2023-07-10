@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -45,17 +47,21 @@ import com.messer_amd.electrician.R
 fun Amperage() {
     var currentInput by remember { mutableStateOf("") }
     var resistanceInput by remember { mutableStateOf("") }
+// переменные для формулы
+    val current = currentInput.toFloatOrNull() ?: 0 // напряжение
+    val resistance = resistanceInput.toFloatOrNull() ?: 0 // сопротивление
+    val amperage = amperageResult() // сила тока итоговая
 
     Card(
         modifier = Modifier
-            .padding(6.dp)
+            .padding(4.dp)
             .background(Color.LightGray),
         shape = RoundedCornerShape(15.dp)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(10.dp),
+                .padding(4.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -66,7 +72,7 @@ fun Amperage() {
                 style = MaterialTheme.typography.headlineMedium,
                 color = Color.Black
             )
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(48.dp))
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -151,21 +157,30 @@ fun Amperage() {
                     )
                 }
             }
-            Spacer(modifier = Modifier.height(28.dp))
+            Spacer(modifier = Modifier.height(48.dp))
             // place for button
             Button(
                 onClick = { /*TODO*/ },
                 elevation = ButtonDefaults.buttonElevation(4.dp),
-                shape = RoundedCornerShape(6.dp),
+                shape = RoundedCornerShape(10.dp),
                 colors = ButtonDefaults.buttonColors(Color.Blue),
             ) {
                 Text(
+                    modifier = Modifier,
                     text = stringResource(R.string.calculate_button_text),
-                    style = MaterialTheme.typography.titleLarge
+                    style = MaterialTheme.typography.headlineSmall
                 )
             }
+            Spacer(modifier = Modifier.height(48.dp))
         }
+        // place for result line
     }
+}
+
+// calculate fun
+
+fun amperageResult() {
+
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

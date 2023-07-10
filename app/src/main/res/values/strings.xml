@@ -6,6 +6,8 @@
     <string name="label_current">Напряжение</string>
     <string name="label_volt">Вольт</string>
     <string name="label_ohm">Ом</string>
+    <string name="label_ampere">Ампер</string>
     <string name="resistance_text">Сопротивление (R)</string>
     <string name="calculate_button_text">Рассчитать</string>
+    <string name="amperage_result">Сила тока (I)</string>
 </resources>
