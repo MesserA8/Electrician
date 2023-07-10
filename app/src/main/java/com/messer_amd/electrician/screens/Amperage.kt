@@ -116,6 +116,7 @@ fun Amperage() {
                         color = Color.Black
                     )
                     Spacer(modifier = Modifier.width(32.dp))
+                    //EDIT VOLTAGE
                     EditNumberField(
                         label = R.string.label_volt,
                         keyboardOptions = KeyboardOptions.Default.copy(
@@ -250,12 +251,26 @@ fun EditNumberField(
     keyboardOptions: KeyboardOptions,
     value: String,
     onValueChanged: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    maxDigits: Int = 8 // Максимальное количество цифр
 ) {
+    val maxLength = maxDigits + 1 // Учитываем точку или запятую
+
+    val validatedValue = if (value.count { it == '.' || it == ',' } > 1) {
+        // Обработка ситуации, когда введено более одной точки или запятой
+        // Например, можно игнорировать введенное значение или отображать сообщение об ошибке
+        ""
+    } else if (value.length > maxLength) {
+        value.substring(0, maxLength)
+    }else{
+        value.replace(',', '.') // Заменяем запятую на точку
+    }
+
     OutlinedTextField(
-        value = value,
-        modifier = modifier,
+        value = validatedValue,
         onValueChange = onValueChanged,
+        modifier = modifier,
+
         label = {
             Box(
                 modifier = Modifier.fillMaxWidth(),
