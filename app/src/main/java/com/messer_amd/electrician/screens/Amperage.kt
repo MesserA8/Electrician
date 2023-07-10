@@ -37,6 +37,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.messer_amd.electrician.R
+import java.math.BigDecimal
+import java.math.RoundingMode
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -45,10 +47,11 @@ import com.messer_amd.electrician.R
 fun Amperage() {
     var currentInput by remember { mutableStateOf("") }
     var resistanceInput by remember { mutableStateOf("") }
+    var amperageResult by remember { mutableStateOf("")}
 // переменные для формулы
-    val current = currentInput.toFloatOrNull() ?: 0 // напряжение
-    val resistance = resistanceInput.toFloatOrNull() ?: 0 // сопротивление
-    val amperage = amperageResult(0.0f, 0.0f)
+//    val current = currentInput.toFloatOrNull() ?: 0 // напряжение
+//    val resistance = resistanceInput.toFloatOrNull() ?: 0 // сопротивление
+  //  val amperage = amperageResult(0.0f, 0.0f)
 
     Card(
         modifier = Modifier
@@ -158,7 +161,11 @@ fun Amperage() {
             Spacer(modifier = Modifier.height(48.dp))
             // place for button
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    val current = currentInput.toFloatOrNull() ?: 0 // напряжение
+                    val resistance = resistanceInput.toFloatOrNull() ?: 0 // сопротивление
+                    amperageResult = amperageResult(current as Float, resistance as Float)
+                          },
                 elevation = ButtonDefaults.buttonElevation(4.dp),
                 shape = RoundedCornerShape(10.dp),
                 colors = ButtonDefaults.buttonColors(Color.Blue),
@@ -171,15 +178,44 @@ fun Amperage() {
             }
             Spacer(modifier = Modifier.height(48.dp))
         }
-        // place for result line
+        // place for result line ИТОГОВАЯ СТРОКА
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            Row(
+                modifier = Modifier,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    modifier = Modifier
+                        .padding(start = 4.dp),
+                    text = stringResource(R.string.amperage_result), // СИЛА ТОКА
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = Color.Black
+                )
+                Spacer(modifier = Modifier.width(10.dp))
+               Text(
+                   modifier = Modifier
+                       .padding(start = 10.dp),
+                   text = amperageResult
+               )
+                Spacer(modifier = Modifier.width(10.dp))
+                Text(
+                    modifier = Modifier.padding(start = 10.dp),
+                    text = stringResource(R.string.label_ampere)
+                )
+            }
+        }
     }
 }
 
 // calculate fun
 
 fun amperageResult(current: Float, resistance: Float): String {
-    var amperage = current / resistance
-    return String.format("%.4f", amperage) // ограничиваем кол-во знаков после запятой
+    val amperage = current / resistance
+    val formattedAmperage = BigDecimal(amperage.toDouble()).setScale(5, RoundingMode.HALF_UP)
+    return formattedAmperage.stripTrailingZeros().toPlainString()
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
