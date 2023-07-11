@@ -5,6 +5,7 @@
     <string name="amperage_title">Сила тока</string>
     <string name="label_current">Напряжение</string>
     <string name="label_volt">Вольт</string>
+    <string name="label_watt">Ватт</string>
     <string name="label_ohm">Ом</string>
     <string name="label_ampere">Ампер</string>
     <string name="calculate_button_text">ПУСК</string>
@@ -17,4 +18,7 @@
     <string name="current_law">Падение напряжения на участке проводника равно произведению силы тока в проводнике на сопротивление этого участка.</string>
     <string name="current_title">Напряжение</string>
     <string name="current_result">Напряжение(U):</string>
+    <string name="power_law">Электрическая мощность — физическая величина, характеризующая скорость передачи или преобразования электрической энергии.</string>
+    <string name="power_title">Мощность</string>
+    <string name="power_result">Мощность(P):</string>
 </resources>
