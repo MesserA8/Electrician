@@ -83,7 +83,7 @@ fun Amperage() {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Color.Cyan)
+                    .background(Color.White)
             ) {
                 Row {
                     Image(
@@ -181,12 +181,13 @@ fun Amperage() {
                 },
                 elevation = ButtonDefaults.buttonElevation(4.dp),
                 shape = RoundedCornerShape(10.dp),
-                colors = ButtonDefaults.buttonColors(Color.Blue),
+                colors = ButtonDefaults.buttonColors(Color(0xFF028D08)),
             ) {
                 Text(
                     modifier = Modifier,
                     text = stringResource(R.string.calculate_button_text),
-                    style = MaterialTheme.typography.headlineSmall
+                    style = MaterialTheme.typography.headlineSmall,
+                    fontWeight = FontWeight.Bold
                 )
             }
             Spacer(modifier = Modifier.height(48.dp))
@@ -217,7 +218,7 @@ fun Amperage() {
                         .weight(0.8f)
                         .padding(start = 10.dp)
                         .border(
-                            width = 1.dp,
+                            width = 2.dp,
                             color = Color.Green,
                             shape = RoundedCornerShape(4.dp)
                         ),

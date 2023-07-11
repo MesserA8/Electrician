@@ -44,10 +44,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.messer_amd.electrician.R
+import com.messer_amd.electrician.ui.theme.GreenButton
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun Resistance() {
     var currentInput by remember { mutableStateOf("") }
@@ -78,7 +79,7 @@ fun Resistance() {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Color.Cyan)
+                    .background(Color.White)
             ) {
                 Row {
                     Image(
@@ -177,12 +178,13 @@ fun Resistance() {
                 },
                 elevation = ButtonDefaults.buttonElevation(4.dp),
                 shape = RoundedCornerShape(10.dp),
-                colors = ButtonDefaults.buttonColors(Color.Blue),
+                colors = ButtonDefaults.buttonColors(Color(0xFF028D08)),
             ) {
                 Text(
                     modifier = Modifier,
                     text = stringResource(R.string.calculate_button_text),
-                    style = MaterialTheme.typography.headlineSmall
+                    style = MaterialTheme.typography.headlineSmall,
+                    fontWeight = FontWeight.Bold
                 )
             }
             Spacer(modifier = Modifier.height(48.dp))
