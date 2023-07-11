@@ -85,7 +85,10 @@ fun Amperage() {
                     .fillMaxWidth()
                     .background(Color.White)
             ) {
-                Row {
+                Row(
+                    modifier = Modifier,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
                     Image(
                         modifier = Modifier
                             .padding(start = 4.dp)
@@ -296,7 +299,7 @@ fun EditNumberField(
         keyboardOptions = keyboardOptions,
         textStyle = TextStyle(
             textAlign = TextAlign.Center, // располагаем введенные значения по центру
-            fontSize = 18.sp // размер вводимых значений
+            fontSize = 18.sp // размер шрифта вводимых значений
         ),
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = Color.Green, // цвет при получении фокуса
