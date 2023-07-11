@@ -23,7 +23,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -47,17 +46,12 @@ import com.messer_amd.electrician.R
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-// Настроить цвет закона Ома
-//выбрать цвета кнопки
-// выбрать цвета выделения активного поля ввода
-// выбрать цвет рамки поля вывода
-
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun Amperage() {
+fun Power() {
     var currentInput by remember { mutableStateOf("") }
-    var resistanceInput by remember { mutableStateOf("") }
-    var amperageResult by remember { mutableStateOf("") }
+    var amperageInput by remember { mutableStateOf("") }
+    var powerResult by remember { mutableStateOf("") }
 
     Card(
         modifier = Modifier
@@ -75,7 +69,7 @@ fun Amperage() {
             Text(
                 modifier = Modifier
                     .padding(top = 16.dp),
-                text = stringResource(R.string.amperage_title),
+                text = stringResource(R.string.power_title),
                 style = MaterialTheme.typography.headlineMedium,
                 color = Color.Black
             )
@@ -93,14 +87,14 @@ fun Amperage() {
                         modifier = Modifier
                             .padding(start = 4.dp)
                             .size(64.dp),
-                        painter = painterResource(R.drawable.amperage),
+                        painter = painterResource(R.drawable.power),
                         contentDescription = null
                     )
                     Spacer(modifier = Modifier.width(15.dp))
                     Text(
                         modifier = Modifier
                             .padding(4.dp),
-                        text = stringResource(R.string.ohm_law),
+                        text = stringResource(R.string.power_law),
                         style = MaterialTheme.typography.titleSmall
                     )
                 }
@@ -123,7 +117,7 @@ fun Amperage() {
                         color = Color.Black
                     )
                     //EDIT VOLTAGE
-                    EditNumberField(
+                    EditDataField(
                         label = R.string.label_volt,
                         keyboardOptions = KeyboardOptions.Default.copy(
                             keyboardType = KeyboardType.Number,
@@ -151,18 +145,19 @@ fun Amperage() {
                         modifier = Modifier
                             .padding(start = 4.dp)
                             .weight(0.7f),
-                        text = stringResource(R.string.resistance_text),
+                        text = stringResource(R.string.amperage_text),
                         style = MaterialTheme.typography.bodyLarge,
                         color = Color.Black
                     )
-                    EditNumberField(
-                        label = R.string.label_ohm,
+                    // EDIT AMPERAGE
+                    EditDataField(
+                        label = R.string.label_ampere,
                         keyboardOptions = KeyboardOptions.Default.copy(
                             keyboardType = KeyboardType.Number,
                             imeAction = ImeAction.Done
                         ),
-                        value = resistanceInput,
-                        onValueChanged = { resistanceInput = it },
+                        value = amperageInput,
+                        onValueChanged = { amperageInput = it },
                         modifier = Modifier
                             .padding(4.dp)
                             .fillMaxWidth()
@@ -175,9 +170,9 @@ fun Amperage() {
             Button(
                 onClick = {
                     val current = currentInput.toFloatOrNull() // напряжение
-                    val resistance = resistanceInput.toFloatOrNull()// сопротивление
-                    amperageResult = if (current != null &&  resistance != null) {
-                        amperageResult(current, resistance)
+                    val amperage = amperageInput.toFloatOrNull()// сопротивление
+                    powerResult = if (current != null && amperage != null) {
+                        powerResult(current, amperage)
                     } else {
                         "☺" // alt + 1
                     }
@@ -206,27 +201,28 @@ fun Amperage() {
             ) {
                 Text(
                     modifier = Modifier
-                        .padding(start = 4.dp)
-                        .weight(0.8f),
-                    text = stringResource(R.string.amperage_result), // СИЛА ТОКА(I):
+                        .padding(start = 2.dp)
+                        .weight(0.6f),
+                    text = stringResource(R.string.power_result), // МОЩНОСТЬ(P):
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.Black
                 )
+
                 // Box with result
                 Box(
                     modifier = Modifier
-                        .weight(0.8f)
+                        .weight(0.6f)
                         .padding(start = 4.dp)
                         .border(
-                            width = 2.dp,
+                            width = 1.dp,
                             color = Color.Green,
                             shape = RoundedCornerShape(4.dp)
                         ),
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = amperageResult,
+                        text = powerResult,
                         modifier = Modifier.padding(2.dp),
                         fontSize = 18.sp
                     )
@@ -234,8 +230,8 @@ fun Amperage() {
                 Text(
                     modifier = Modifier
                         .padding(start = 2.dp)
-                        .weight(0.7f),
-                    text = stringResource(R.string.label_ampere),
+                        .weight(0.4f),
+                    text = stringResource(R.string.label_watt),
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.Black,
@@ -249,18 +245,18 @@ fun Amperage() {
 
 // calculate fun
 
-fun amperageResult(current: Float, resistance: Float): String {
-    if (current == 0f || resistance == 0f) {
+fun powerResult(current: Float, amperage: Float): String {
+    if (current == 0f || amperage == 0f) {
         return "-273.15°C" // alt + 0176
     }
-    val amperage = current / resistance
-    val formattedAmperage = BigDecimal(amperage.toDouble()).setScale(5, RoundingMode.HALF_UP)
-    return formattedAmperage.stripTrailingZeros().toPlainString()
+    val power = current * amperage
+    val formattedPower = BigDecimal(power.toDouble()).setScale(5, RoundingMode.HALF_UP)
+    return formattedPower.stripTrailingZeros().toPlainString()
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EditNumberField(
+fun EditParamField(
     @StringRes label: Int,
     keyboardOptions: KeyboardOptions,
     value: String,
@@ -276,7 +272,7 @@ fun EditNumberField(
         ""
     } else if (value.length > maxLength) {
         value.substring(0, maxLength)
-    }else{
+    } else {
         value.replace(',', '.') // Заменяем запятую на точку
     }
 
@@ -304,10 +300,3 @@ fun EditNumberField(
         )
     )
 }
-
-
-
-
-
-
-

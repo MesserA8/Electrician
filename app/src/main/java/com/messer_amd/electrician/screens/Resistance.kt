@@ -205,7 +205,7 @@ fun Resistance() {
                     modifier = Modifier
                         .padding(start = 4.dp)
                         .weight(0.8f),
-                    text = stringResource(R.string.resistance_result), // СИЛА ТОКА(I):
+                    text = stringResource(R.string.resistance_result), // СОПРОТИВЛЕНИЕ(R):
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.Black
@@ -215,7 +215,7 @@ fun Resistance() {
                 Box(
                     modifier = Modifier
                         .weight(0.7f)
-                        .padding(start = 10.dp)
+                        .padding(start = 4.dp)
                         .border(
                             width = 1.dp,
                             color = Color.Green,

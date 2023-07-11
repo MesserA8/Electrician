@@ -119,7 +119,7 @@ fun Current() {
                         color = Color.Black
                     )
                     //EDIT AMPERAGE
-                    EditDataField(
+                    EditParametersField(
                         label = R.string.label_ampere,
                         keyboardOptions = KeyboardOptions.Default.copy(
                             keyboardType = KeyboardType.Number,
@@ -153,7 +153,7 @@ fun Current() {
                         color = Color.Black
                     )
                     // EDIT RESISTANCE
-                    EditDataField(
+                    EditParametersField(
                         label = R.string.label_ohm,
                         keyboardOptions = KeyboardOptions.Default.copy(
                             keyboardType = KeyboardType.Number,
@@ -206,7 +206,7 @@ fun Current() {
                     modifier = Modifier
                         .padding(start = 4.dp)
                         .weight(0.7f),
-                    text = stringResource(R.string.current_result), // СИЛА ТОКА(I):
+                    text = stringResource(R.string.current_result), // НАПРЯЖЕНИЕ(U):
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.Black
@@ -216,7 +216,7 @@ fun Current() {
                 Box(
                     modifier = Modifier
                         .weight(0.8f)
-                        .padding(start = 10.dp)
+                        .padding(start = 4.dp)
                         .border(
                             width = 1.dp,
                             color = Color.Green,
