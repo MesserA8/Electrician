@@ -79,7 +79,7 @@ fun Amperage() {
                 style = MaterialTheme.typography.headlineMedium,
                 color = Color.Black
             )
-            Spacer(modifier = Modifier.height(48.dp))
+            Spacer(modifier = Modifier.height(40.dp))
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -102,7 +102,7 @@ fun Amperage() {
                     )
                 }
             }
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(40.dp))
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -113,12 +113,12 @@ fun Amperage() {
                 ) {
                     Text(
                         modifier = Modifier
-                            .padding(start = 4.dp),
+                            .padding(start = 4.dp)
+                            .weight(0.7f),
                         text = stringResource(R.string.current_text),
                         style = MaterialTheme.typography.bodyLarge,
                         color = Color.Black
                     )
-                    Spacer(modifier = Modifier.width(32.dp))
                     //EDIT VOLTAGE
                     EditNumberField(
                         label = R.string.label_volt,
@@ -131,6 +131,7 @@ fun Amperage() {
                         modifier = Modifier
                             .padding(4.dp)
                             .fillMaxWidth()
+                            .weight(1f)
                     )
                 }
             }
@@ -145,12 +146,12 @@ fun Amperage() {
                 ) {
                     Text(
                         modifier = Modifier
-                            .padding(start = 4.dp),
+                            .padding(start = 4.dp)
+                            .weight(0.7f),
                         text = stringResource(R.string.resistance_text),
                         style = MaterialTheme.typography.bodyLarge,
                         color = Color.Black
                     )
-                    Spacer(modifier = Modifier.width(10.dp))
                     EditNumberField(
                         label = R.string.label_ohm,
                         keyboardOptions = KeyboardOptions.Default.copy(
@@ -162,6 +163,7 @@ fun Amperage() {
                         modifier = Modifier
                             .padding(4.dp)
                             .fillMaxWidth()
+                            .weight(1f)
                     )
                 }
             }
@@ -240,7 +242,7 @@ fun Amperage() {
                 )
             }
         }
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(40.dp))
     }
 }
 

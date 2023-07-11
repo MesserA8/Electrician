@@ -1,5 +1,6 @@
 package com.messer_amd.electrician.screens
 
+
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -46,7 +47,7 @@ import com.messer_amd.electrician.R
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true)
 @Composable
 fun Resistance() {
     var currentInput by remember { mutableStateOf("") }
@@ -73,7 +74,7 @@ fun Resistance() {
                 style = MaterialTheme.typography.headlineMedium,
                 color = Color.Black
             )
-            Spacer(modifier = Modifier.height(48.dp))
+            Spacer(modifier = Modifier.height(40.dp))
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -96,7 +97,7 @@ fun Resistance() {
                     )
                 }
             }
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(40.dp))
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -108,12 +109,11 @@ fun Resistance() {
                     Text(
                         modifier = Modifier
                             .padding(start = 4.dp)
-                            .weight(0.6f),
+                            .weight(0.7f),
                         text = stringResource(R.string.current_text),
                         style = MaterialTheme.typography.bodyLarge,
                         color = Color.Black
                     )
-                    Spacer(modifier = Modifier.width(32.dp))
                     //EDIT VOLTAGE
                     EditDataField(
                         label = R.string.label_volt,
@@ -147,7 +147,6 @@ fun Resistance() {
                         style = MaterialTheme.typography.bodyLarge,
                         color = Color.Black
                     )
-                    Spacer(modifier = Modifier.width(10.dp))
                     // EDIT AMPERAGE
                     EditDataField(
                         label = R.string.label_ampere,
@@ -225,7 +224,6 @@ fun Resistance() {
                         fontSize = 18.sp
                     )
                 }
-                // Spacer(modifier = Modifier.width(10.dp))
                 Text(
                     modifier = Modifier
                         .padding(start = 2.dp)
@@ -238,7 +236,7 @@ fun Resistance() {
                 )
             }
         }
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(40.dp))
     }
 }
 

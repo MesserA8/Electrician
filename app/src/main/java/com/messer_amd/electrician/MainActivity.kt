@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.messer_amd.electrician.screens.Amperage
+import com.messer_amd.electrician.screens.Resistance
 import com.messer_amd.electrician.ui.theme.ElectricianTheme
 
 class MainActivity : ComponentActivity() {
@@ -23,7 +24,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Amperage()
+                    //Amperage()
+                    Resistance()
                 }
             }
         }
@@ -35,6 +37,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun GreetingPreview() {
     ElectricianTheme {
-
+        Resistance()
     }
 }
