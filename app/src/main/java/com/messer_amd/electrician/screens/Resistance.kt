@@ -44,14 +44,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.messer_amd.electrician.R
-import com.messer_amd.electrician.ui.theme.GreenButton
 import java.math.BigDecimal
 import java.math.RoundingMode
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun Resistance() {
-    var currentInput by remember { mutableStateOf("") }
+    var voltageInput by remember { mutableStateOf("") }
     var amperageInput by remember { mutableStateOf("") }
     var resistanceResult by remember { mutableStateOf("") }
 
@@ -114,7 +113,7 @@ fun Resistance() {
                         modifier = Modifier
                             .padding(start = 4.dp)
                             .weight(0.7f),
-                        text = stringResource(R.string.current_text),
+                        text = stringResource(R.string.voltage_text),
                         style = MaterialTheme.typography.bodyLarge,
                         color = Color.Black
                     )
@@ -125,8 +124,8 @@ fun Resistance() {
                             keyboardType = KeyboardType.Number,
                             imeAction = ImeAction.Next,
                         ),
-                        value = currentInput,
-                        onValueChanged = { currentInput = it },
+                        value = voltageInput,
+                        onValueChanged = { voltageInput = it },
                         modifier = Modifier
                             .padding(4.dp)
                             .fillMaxWidth()
@@ -171,10 +170,10 @@ fun Resistance() {
             // place for button
             Button(
                 onClick = {
-                    val current = currentInput.toFloatOrNull() // напряжение
+                    val voltage = voltageInput.toFloatOrNull() // напряжение
                     val amperage = amperageInput.toFloatOrNull()// сопротивление
-                    resistanceResult = if (current != null && amperage != null) {
-                        resistanceResult(current, amperage)
+                    resistanceResult = if (voltage != null && amperage != null) {
+                        resistanceResult(voltage, amperage)
                     } else {
                         "☺" // alt + 1
                     }
@@ -247,11 +246,11 @@ fun Resistance() {
 
 // calculate fun
 
-fun resistanceResult(current: Float, amperage: Float): String {
-    if (current == 0f || amperage == 0f) {
+fun resistanceResult(voltage: Float, amperage: Float): String {
+    if (voltage == 0f || amperage == 0f) {
         return "-273.15°C" // alt + 0176
     }
-    val resistance = current / amperage
+    val resistance = voltage / amperage
     val formattedResistance = BigDecimal(resistance.toDouble()).setScale(5, RoundingMode.HALF_UP)
     return formattedResistance.stripTrailingZeros().toPlainString()
 }

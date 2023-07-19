@@ -49,7 +49,7 @@ import java.math.RoundingMode
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun Power() {
-    var currentInput by remember { mutableStateOf("") }
+    var voltageInput by remember { mutableStateOf("") }
     var amperageInput by remember { mutableStateOf("") }
     var powerResult by remember { mutableStateOf("") }
 
@@ -112,19 +112,19 @@ fun Power() {
                         modifier = Modifier
                             .padding(start = 4.dp)
                             .weight(0.7f),
-                        text = stringResource(R.string.current_text),
+                        text = stringResource(R.string.voltage_text),
                         style = MaterialTheme.typography.bodyLarge,
                         color = Color.Black
                     )
                     //EDIT VOLTAGE
-                    EditDataField(
+                    EditParamField(
                         label = R.string.label_volt,
                         keyboardOptions = KeyboardOptions.Default.copy(
                             keyboardType = KeyboardType.Number,
                             imeAction = ImeAction.Next,
                         ),
-                        value = currentInput,
-                        onValueChanged = { currentInput = it },
+                        value = voltageInput,
+                        onValueChanged = { voltageInput = it },
                         modifier = Modifier
                             .padding(4.dp)
                             .fillMaxWidth()
@@ -150,7 +150,7 @@ fun Power() {
                         color = Color.Black
                     )
                     // EDIT AMPERAGE
-                    EditDataField(
+                    EditParamField(
                         label = R.string.label_ampere,
                         keyboardOptions = KeyboardOptions.Default.copy(
                             keyboardType = KeyboardType.Number,
@@ -169,7 +169,7 @@ fun Power() {
             // place for button
             Button(
                 onClick = {
-                    val current = currentInput.toFloatOrNull() // напряжение
+                    val current = voltageInput.toFloatOrNull() // напряжение
                     val amperage = amperageInput.toFloatOrNull()// сопротивление
                     powerResult = if (current != null && amperage != null) {
                         powerResult(current, amperage)
@@ -245,11 +245,11 @@ fun Power() {
 
 // calculate fun
 
-fun powerResult(current: Float, amperage: Float): String {
-    if (current == 0f || amperage == 0f) {
+fun powerResult(voltage: Float, amperage: Float): String {
+    if (voltage == 0f || amperage == 0f) {
         return "-273.15°C" // alt + 0176
     }
-    val power = current * amperage
+    val power = voltage * amperage
     val formattedPower = BigDecimal(power.toDouble()).setScale(5, RoundingMode.HALF_UP)
     return formattedPower.stripTrailingZeros().toPlainString()
 }

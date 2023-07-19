@@ -23,7 +23,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -47,7 +46,6 @@ import com.messer_amd.electrician.R
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-// Настроить цвет закона Ома
 //выбрать цвета кнопки
 // выбрать цвета выделения активного поля ввода
 // выбрать цвет рамки поля вывода
@@ -55,7 +53,7 @@ import java.math.RoundingMode
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun Amperage() {
-    var currentInput by remember { mutableStateOf("") }
+    var voltageInput by remember { mutableStateOf("") }
     var resistanceInput by remember { mutableStateOf("") }
     var amperageResult by remember { mutableStateOf("") }
 
@@ -118,7 +116,7 @@ fun Amperage() {
                         modifier = Modifier
                             .padding(start = 4.dp)
                             .weight(0.7f),
-                        text = stringResource(R.string.current_text),
+                        text = stringResource(R.string.voltage_text),
                         style = MaterialTheme.typography.bodyLarge,
                         color = Color.Black
                     )
@@ -129,8 +127,8 @@ fun Amperage() {
                             keyboardType = KeyboardType.Number,
                             imeAction = ImeAction.Next,
                         ),
-                        value = currentInput,
-                        onValueChanged = { currentInput = it },
+                        value = voltageInput,
+                        onValueChanged = { voltageInput = it },
                         modifier = Modifier
                             .padding(4.dp)
                             .fillMaxWidth()
@@ -174,10 +172,10 @@ fun Amperage() {
             // place for button
             Button(
                 onClick = {
-                    val current = currentInput.toFloatOrNull() // напряжение
+                    val voltage = voltageInput.toFloatOrNull() // напряжение
                     val resistance = resistanceInput.toFloatOrNull()// сопротивление
-                    amperageResult = if (current != null &&  resistance != null) {
-                        amperageResult(current, resistance)
+                    amperageResult = if (voltage != null &&  resistance != null) {
+                        amperageResult(voltage, resistance)
                     } else {
                         "☺" // alt + 1
                     }
@@ -249,11 +247,11 @@ fun Amperage() {
 
 // calculate fun
 
-fun amperageResult(current: Float, resistance: Float): String {
-    if (current == 0f || resistance == 0f) {
+fun amperageResult(voltage: Float, resistance: Float): String {
+    if (voltage == 0f || resistance == 0f) {
         return "-273.15°C" // alt + 0176
     }
-    val amperage = current / resistance
+    val amperage = voltage / resistance
     val formattedAmperage = BigDecimal(amperage.toDouble()).setScale(5, RoundingMode.HALF_UP)
     return formattedAmperage.stripTrailingZeros().toPlainString()
 }

@@ -48,10 +48,10 @@ import java.math.RoundingMode
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun Current() {
+fun Voltage() {
     var amperageInput by remember { mutableStateOf("") }
     var resistanceInput by remember { mutableStateOf("") }
-    var currentResult by remember { mutableStateOf("") }
+    var voltageResult by remember { mutableStateOf("") }
 
 
     Card(
@@ -70,7 +70,7 @@ fun Current() {
             Text(
                 modifier = Modifier
                     .padding(top = 16.dp),
-                text = stringResource(R.string.current_title),
+                text = stringResource(R.string.voltage_title),
                 style = MaterialTheme.typography.headlineMedium,
                 color = Color.Black
             )
@@ -88,14 +88,14 @@ fun Current() {
                         modifier = Modifier
                             .padding(start = 4.dp)
                             .size(64.dp),
-                        painter = painterResource(R.drawable.current),
+                        painter = painterResource(R.drawable.voltage),
                         contentDescription = null
                     )
                     Spacer(modifier = Modifier.width(15.dp))
                     Text(
                         modifier = Modifier
                             .padding(4.dp),
-                        text = stringResource(R.string.current_law),
+                        text = stringResource(R.string.voltage_law),
                         style = MaterialTheme.typography.titleSmall
                     )
                 }
@@ -174,8 +174,8 @@ fun Current() {
                 onClick = {
                     val amperage = amperageInput.toFloatOrNull() // напряжение
                     val resistance = resistanceInput.toFloatOrNull()// сопротивление
-                    currentResult = if (amperage != null && resistance != null) {
-                        currentResult(amperage, resistance)
+                    voltageResult = if (amperage != null && resistance != null) {
+                        voltageResult(amperage, resistance)
                     } else {
                         "☺" // alt + 1
                     }
@@ -206,7 +206,7 @@ fun Current() {
                     modifier = Modifier
                         .padding(start = 4.dp)
                         .weight(0.7f),
-                    text = stringResource(R.string.current_result), // НАПРЯЖЕНИЕ(U):
+                    text = stringResource(R.string.voltage_result), // НАПРЯЖЕНИЕ(U):
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.Black
@@ -225,7 +225,7 @@ fun Current() {
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = currentResult,
+                        text = voltageResult,
                         modifier = Modifier.padding(2.dp),
                         fontSize = 18.sp
                     )
@@ -248,12 +248,12 @@ fun Current() {
 
 // calculate fun
 
-fun currentResult(amperage: Float, resistance: Float): String {
+fun voltageResult(amperage: Float, resistance: Float): String {
     if (amperage == 0f || resistance == 0f) {
         return "-273.15°C" // alt + 0176
     }
-    val current = amperage * resistance
-    val formattedCurrent = BigDecimal(current.toDouble()).setScale(5, RoundingMode.HALF_UP)
+    val voltage = amperage * resistance
+    val formattedCurrent = BigDecimal(voltage.toDouble()).setScale(5, RoundingMode.HALF_UP)
     return formattedCurrent.stripTrailingZeros().toPlainString()
 }
 
